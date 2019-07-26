@@ -247,7 +247,7 @@ class S3(object):
     }
 
     ## Maximum attempts of re-issuing failed requests
-    _max_retries = 5
+    _max_retries = sys.maxint
 
     def __init__(self, config):
         self.config = config
@@ -1130,7 +1130,8 @@ class S3(object):
 
     def _fail_wait(self, retries):
         # Wait a few seconds. The more it fails the more we wait.
-        return (self._max_retries - retries + 1) * 3
+        # return (self._max_retries - retries + 1) * 3
+        return 1
 
     def _http_redirection_handler(self, request, response, fn, *args, **kwargs):
         # Region info might already be available through the x-amz-bucket-region header
